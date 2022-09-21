@@ -5,7 +5,7 @@
         "fields": {
             "watched": false,
             "title": "Mencuri Raden Saleh",
-            "rating": 4,
+            "rating": 5,
             "release_date": "2022-08-25",
             "review": "Film dengan plot yang seru dan menarik."
         }
@@ -14,9 +14,9 @@
         "model": "mywatchlist.watchlistitem",
         "pk": 2,
         "fields": {
-            "watched": true,
+            "watched": false,
             "title": "Miracle in Cell No. 7",
-            "rating": 4,
+            "rating": 5,
             "release_date": "2022-09-08",
             "review": "Film ini cocok untuk orang yang percaya cinta melebihi dari segalanya."
         }
@@ -25,7 +25,7 @@
         "model": "mywatchlist.watchlistitem",
         "pk": 3,
         "fields": {
-            "watched": true,
+            "watched": false,
             "title": "Ngeri-Ngeri Sedap",
             "rating": 4,
             "release_date": "2012-04-25",
@@ -91,7 +91,7 @@
         "model": "mywatchlist.watchlistitem",
         "pk": 9,
         "fields": {
-            "watched": true,
+            "watched": false,
             "title": "Ranah 3 Warna",
             "rating": 3,
             "release_date": "2022-06-30",
