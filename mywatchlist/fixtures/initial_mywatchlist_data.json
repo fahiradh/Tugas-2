@@ -1,0 +1,112 @@
+[
+    {
+        "model": "mywatchlist.watchlistitem",
+        "pk": 1,
+        "fields": {
+            "watched": false,
+            "title": "Mencuri Raden Saleh",
+            "rating": 4,
+            "release_date": "2022-08-25",
+            "review": "Film dengan plot yang seru dan menarik."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlistitem",
+        "pk": 2,
+        "fields": {
+            "watched": true,
+            "title": "Miracle in Cell No. 7",
+            "rating": 4,
+            "release_date": "2022-09-08",
+            "review": "Film ini cocok untuk orang yang percaya cinta melebihi dari segalanya."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlistitem",
+        "pk": 3,
+        "fields": {
+            "watched": true,
+            "title": "Ngeri-Ngeri Sedap",
+            "rating": 4,
+            "release_date": "2012-04-25",
+            "review": "Seluruh komponen film berhasil menggambarkan kondisi keluarga batak dengan sempurna."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlistitem",
+        "pk": 4,
+        "fields": {
+            "watched": false,
+            "title": "Gara-Gara Warisan",
+            "rating": 4,
+            "release_date": "2022-04-30",
+            "review": "Menonton film ini seperti naik roller coaster, porsi komedi dan drama saling melengkapi satu sama lain."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlistitem",
+        "pk": 5,
+        "fields": {
+            "watched": false,
+            "title": "KKN di Desa Penari",
+            "rating": 3,
+            "release_date": "2022-04-30",
+            "review": "Film ini memiliki narasi yang terlalu panjang dan agak berjalan tanpa tujuan untuk sebagian besar runtime-nya."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlistitem",
+        "pk": 6,
+        "fields": {
+            "watched": true,
+            "title": "Ali & Ratu-Ratu Queens",
+            "rating": 3,
+            "release_date": "2021-06-17",
+            "review": "Kisah yang manis dari seorang anak muda yang ingin menemukan arti keluarga."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlistitem",
+        "pk": 7,
+        "fields": {
+            "watched": false,
+            "title": "Keluarga Cemara",
+            "rating": 3,
+            "release_date": "2019-01-03",
+            "review": "Berhasil menceritakan value besar dari keluarga kepada masing-masing anggota keluarga."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlistitem",
+        "pk": 8,
+        "fields": {
+            "watched": true,
+            "title": "Pengabdi Setan 2",
+            "rating": 4,
+            "release_date": "2022-04-04",
+            "review": "Sebuah masterpiece dari Joko Anwar."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlistitem",
+        "pk": 9,
+        "fields": {
+            "watched": true,
+            "title": "Ranah 3 Warna",
+            "rating": 3,
+            "release_date": "2022-06-30",
+            "review": "Film sederhana, tetapi mengandung banyak nilai yang bisa dipetik."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlistitem",
+        "pk": 10,
+        "fields": {
+            "watched": true,
+            "title": "Sayap-Sayap Patah",
+            "rating": 5,
+            "release_date": "2022-08-18",
+            "review": "Storyline yang buruk dengan ending yang mudah ditebak."
+        }
+    }
+]

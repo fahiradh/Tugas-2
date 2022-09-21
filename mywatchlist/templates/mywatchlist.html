@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+  table, th, td {
+    border: 2px solid black;
+    border-color: #16213E;
+    border-collapse: collapse;
+    text-align: center;
+    font-size:15px;
+    font-weight:400;
+  }
+  
+  table.center {
+    margin-left: auto; 
+    margin-right: auto;
+  }
+
+  h5{
+    text-align:center;
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  p{
+    text-align:center;
+    color: #533483;
+    font-size: 20px;
+    font-weight: 550;
+  }
+
+  h1{
+    text-align: center;
+    color: #ffffff;
+    background: #0F3460;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 25px;
+    color: #fff;
+    line-height: 40px;
+    border-radius: 30px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+  }
+</style>
+
+<h1>Tugas 3 Assignment PBP/PBD</h1>
+
+<h5>Name: </h5>
+
+<p>{{nama}}</p>
+
+<h5>Student ID: </h5>
+
+<p>{{npm}}</p>
+
+<table class="center">
+  <tr>
+    <th>Title</th>
+    <th>Release Date</th> 
+    <th>Rating</th>
+    <th>Review</th>
+    <th>Watched</th>
+  </tr>
+
+{% for film in data_film %}
+<tr>
+    <th>{{film.title}}</th>
+    <th>{{film.release_date}}</th>
+    <th>{{film.rating}}</th>
+    <th>{{film.review}}</th>
+    <th>{{film.watched}}</th>
+    </th>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock content %}
