@@ -58,7 +58,7 @@ def create_task(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
-        todo = TodoList.objects.create(title=title, description=description, date=datetime.date.today(), user=request.user)
+        TodoList.objects.create(title=title, description=description, date=datetime.date.today(), user=request.user)
         response = HttpResponseRedirect(reverse("todolist:show_todolist")) 
         return response
     return render(request,"create_task.html")
