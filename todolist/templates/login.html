@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+
+<div class = "login">
+  <style>
+    h2{
+    text-align: center;
+    background: #16213E;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 25px;
+    color: #fff;
+    line-height: 25px;
+    border-radius: 30px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    }
+
+    form, input, p{
+        text-align: center;
+    }
+
+    table, th, td{
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 18px;
+        font-weight: 400;
+    }
+    
+    .center {
+        margin-left: auto; 
+        margin-right: auto;
+    }
+  </style>
+
+    <h2>Login</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table  class="center">
+            <tr>
+                <td>Username </td>
+                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+            </tr>
+                    
+            <tr>
+                <td>Password </td>
+                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input class="btn login_btn" type="submit" value="Login"></td>
+            </tr>
+        </table>
+    </form>
+
+    {% if messages %}
+      {% for message in messages %}
+        <p style="color:red">{{message}}</p>
+      {% endfor %}
+    {% endif %}     
+        
+    <p>Belum mempunyai akun? </p>
+    <p><a href="{% url 'todolist:register' %}">Buat Akun</a></p>
+
+</div>
+
+{% endblock content %}

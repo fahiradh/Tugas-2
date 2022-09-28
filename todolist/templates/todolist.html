@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Tugas 4 Assignment PBP/PBD</h1>
+<h2>To Do List</h2>
+
+<style>
+    table, th, td {
+        border: 2px solid black;
+        border-color: #16213E;
+        border-collapse: collapse;
+        text-align: center;
+        font-size:15px;
+        font-weight:400;
+    }
+      
+    .center {
+        margin-left: auto; 
+        margin-right: auto;
+    }
+
+    h1{
+      text-align: center;
+      background: #0F3460;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 25px;
+      color: #fff;
+      line-height: 25px;
+      border-radius: 30px;
+      padding-bottom: 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 15px;
+    }
+
+    h2{
+        text-align: center;
+        background: #16213E;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 25px;
+        color: #fff;
+        line-height: 25px;
+        border-radius: 30px;
+        padding-bottom: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 15px;
+    }
+
+    h5, p{
+        text-align: center;
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    
+</style>
+
+<h5>Username: {{username}} </h5>
+
+<table class="center">
+    <tr>
+        <p><a href="{% url 'todolist:create-task'%}">Tambah Task</a></p>
+    </tr>
+    <tr>
+        <th>Tanggal</th>
+        <th>Judul</th>
+        <th>Deskripsi</th>
+        <th>Status</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+
+    {% for task in daftar_task %}
+    <tr>
+        <th>{{task.date}}</th>
+        <th>{{task.title}}</th>
+        <th>{{task.description}}</th>
+        <th>{{task.is_finished}}</th>
+        <th><button><a href="updatetask/{{task.id}}">Update task</a></button></th>
+        <th><button><a href="deletetask/{{task.id}}">Delete task</a></button></th>
+    </tr>
+{% endfor %}
+</table>
+
+<p><a href="{% url 'todolist:logout'%}">Logout</a></p>
+{% endblock content %}

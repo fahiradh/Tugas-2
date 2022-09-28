@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block meta %}
+
+<title>Create Task</title>
+
+{% endblock meta %}
+{% block content %} 
+<div class = "create">
+    <style>
+        h2{
+            text-align: center;
+            background: #16213E;
+            text-transform: uppercase;
+            font-size: 25px;
+            color: #fff;
+            line-height: 25px;
+            border-radius: 30px;
+            padding-bottom: 15px;
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-top: 15px;
+        }
+
+        form, input{
+            text-align: left;
+        }
+
+        table, th, td {
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 18px;
+        }
+        
+        .center {
+            margin-left: auto; 
+            margin-right: auto;
+        }
+    </style>
+
+    <h2>Create Task</h2>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table class="center">
+            <tr>
+                <td>Judul: </td>
+                <td><input type="text" name="title" placeholder="Title" class="form-control"></td>
+            </tr>
+                    
+            <tr>
+                <td>Deskripsi: </td>
+                <td><input type="text" name="description" placeholder="Description" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input class="btn login_btn" type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+{% endblock content %}

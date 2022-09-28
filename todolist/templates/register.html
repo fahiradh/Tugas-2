@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block meta %}
+
+<title>Registrasi Akun</title>
+
+{% endblock meta %}
+{% block content %}  
+<div class = "register">
+    <style>
+        h2{
+        text-align: center;
+        background: #16213E;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 25px;
+        color: #fff;
+        line-height: 25px;
+        border-radius: 30px;
+        padding-bottom: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 15px;
+        }
+
+        form, input, p{
+            text-align: center;
+        }
+    
+        table, th, td{
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+
+    <h2>Registration</h2>  
+    <form method="POST">  
+        {% csrf_token %}  
+        <table class="center">
+            <p>
+                {{form.as_table}}  
+            </p>
+            <tr>  
+                <td></td>
+                <td>
+                    <input type="submit" name="submit" value="Registrasi Akun"/></td>
+            </tr>  
+        </table>  
+    </form>
+
+    {% if messages %}  
+        {% for message in messages %}  
+            <li>{{message}}</li>  
+        {% endfor %}  
+    {% endif %}
+</div>
+{% endblock content %}
