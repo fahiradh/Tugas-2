@@ -78,7 +78,11 @@
         <th>{{task.date}}</th>
         <th>{{task.title}}</th>
         <th>{{task.description}}</th>
-        <th>{{task.is_finished}}</th>
+            {% if task.is_finished %}
+            <th>Selesai</th>
+            {% else %}
+            <th>Belum Selesai</th>
+            {% endif %}
         <th><button><a href="updatetask/{{task.id}}">Update task</a></button></th>
         <th><button><a href="deletetask/{{task.id}}">Delete task</a></button></th>
     </tr>
