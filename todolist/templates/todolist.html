@@ -85,5 +85,6 @@
 {% endfor %}
 </table>
 
+<h5>Sesi terakhir login: {{last_login}}</h5>
 <p><a href="{% url 'todolist:logout'%}">Logout</a></p>
 {% endblock content %}

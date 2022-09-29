@@ -16,6 +16,7 @@ def show_todolist(request):
         'list': data_todolist,
         'username': request.user.username,
         'daftar_task': data_todolist,
+        'last_login': request.COOKIES['last_login'],
     }
     return render(request, 'todolist.html', context)
 
@@ -27,7 +28,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             response = HttpResponseRedirect(reverse("todolist:show_todolist"))
-            response.set_cookie('latest_login', str(datetime.datetime.now()))
+            response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
         else:
             messages.info(request, 'Username atau Password salah!')
@@ -37,7 +38,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse('todolist:login'))
-    response.delete_cookie('latest_login')
+    response.delete_cookie('last_login')
     return response
 
 def register(request):
