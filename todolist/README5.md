@@ -7,13 +7,13 @@
 Perbedaan inline, internal, dan external CSS dapat dilihat dari cara pada penggunaannya di dalam file HTML. Internal class merupakan kode yang dituliskan dengan tag `<style>` pada bagian header dan merujuk pada satu class spesifik. Kelebihan dari internal CSS adalah memudahkan kostuminsasi design karena tidak perlu mengunggah beberapa file tambahan. Namun, banyaknya isi internal CSS akan memengaruhi waktu loading page. Berbeda dengan internal, inline CSS merupakan CSS yang dituliskan langsung pada atribut elemen HTML. Spesifiknya, inline CSS dituliskan di dalam atribut style elemen HTML. Inline CSS membuat proses request HTTP yang kecil untuk loading website jadi lebih cepat. Sementara itu, external CSS adalah CSS yang ditulis di luar file HTML dengan ekstensi .css. Biasanya CSS tersebut dipanggil di bagian header file HTML atau setelah `<head>`.
 
 ## Jelaskan tag HTML5 yang kamu ketahui.
-`<h1>`hingga `<h5>` : Mencetak tulisan sebagai header. Semakin kecil angka, semakin besar ukuran header yang akan dicatak
-`<p>` : Mencetak teks dalam bentuk paragraf
-`<a>` : Me-refer link web tujuan
-`<title>` : Mengatur judul halaman
-`<button>` : Membuat sebuah tombol yang dapat di-klik
-`<table> `: Membuat tabel
-`<tr>` : Mendefinisikan baris pada tabel
+`<h1>`hingga `<h5>` : Mencetak tulisan sebagai header. Semakin kecil angka, semakin besar ukuran header yang akan dicatak <br/>
+`<p>` : Mencetak teks dalam bentuk paragraf<br/>
+`<a>` : Me-refer link web tujuan<br/>
+`<title>` : Mengatur judul halaman<br/>
+`<button>` : Membuat sebuah tombol yang dapat di-klik<br/>
+`<table> `: Membuat tabel<br/>
+`<tr>` : Mendefinisikan baris pada tabel<br/>
 `<td>` : Mendefinisikan kolom pada tabel
 
 ## Jelaskan tipe-tipe CSS selector yang kamu ketahui.
