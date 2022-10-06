@@ -1,94 +1,137 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
+{% block meta %}
+<title>To Do List</title>
+{% endblock meta %}
 {% block content %}
+<html>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<h1>Tugas 4 Assignment PBP/PBD</h1>
-<h2>To Do List</h2>
-
-<style>
-    table, th, td {
-        border: 2px solid black;
-        border-color: #16213E;
-        border-collapse: collapse;
-        text-align: center;
-        font-size:15px;
-        font-weight:400;
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  <style media="screen">
+    *,
+    *:before,
+    *:after{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
     }
-      
-    .center {
-        margin-left: auto; 
-        margin-right: auto;
+    body {
+      position: center;
+      font-family: 'Poppins',sans-serif;
+      background-color: #161623;
+      color:white;
     }
-
-    h1{
+  
+    .header, h1 {
       text-align: center;
-      background: #0F3460;
+      padding: 20px;
+      font-size:31px;
+      font-weight:600;
+      color: white;
+    }
+
+    h5 {
+      padding: 20px;
+      font-size:18px;
+      color: white;
+      text-align: center;
+    }
+    @media (max-width: 800px) {
+      .column {
+        flex: 46%;
+        max-width: 46%;
+      }
+    }
+  
+  .card {
+    -webkit-backdrop-filter: blur(16px) saturate(155%);
+    background-color: rgba(255, 255, 255, 0.69);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+  }
+  .card-title {
+    font-family: 'Poppins',sans-serif;
+    font-weight:bold;
+    text-align: center;
+    text-transform: uppecase;
+    font-size: 28px;
+  }
+  .card-text {
+    font-family: 'Poppins',sans-serif;
+    text-align: justify;
+  }
+
+  button{
+      text-align: center;  
+      margin-top: 10px;
+      width: 100px;
+      background-color: #161623;
+      padding: 10px 0;
+      font-size: 14px;
       font-weight: 600;
-      text-transform: uppercase;
-      font-size: 25px;
-      color: #fff;
-      line-height: 25px;
-      border-radius: 30px;
-      padding-bottom: 15px;
-      padding-left: 15px;
-      padding-right: 15px;
-      padding-top: 15px;
-    }
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom:10px;
+  }
+  .list-group, .list-group-item-success{
+    font-family: 'Poppins',sans-serif;
+    position:center;
+    color: #020302;
+    background-color: rgba(255, 255, 255, 0.69);
+    border-radius: 12px;
+    backdrop-filter: blur(16px) saturate(155%);
+    -webkit-backdrop-filter: blur(16px) saturate(155%);
+    border: 1px solid rgba(209, 213, 219, 0.3);
 
-    h2{
-        text-align: center;
-        background: #16213E;
-        font-weight: 600;
-        text-transform: uppercase;
-        font-size: 25px;
-        color: #fff;
-        line-height: 25px;
-        border-radius: 30px;
-        padding-bottom: 15px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 15px;
-    }
-
-    h5, p{
-        text-align: center;
-        font-size: 20px;
-        font-weight: 400;
-    }
-
-    
-</style>
-
-<h5>Username: {{username}} </h5>
-
-<table class="center">
-    <tr>
-        <p><a href="{% url 'todolist:create-task'%}">Tambah Task</a></p>
-    </tr>
-    <tr>
-        <th>Tanggal</th>
-        <th>Judul</th>
-        <th>Deskripsi</th>
-        <th>Status</th>
-        <th>Update</th>
-        <th>Delete</th>
-    </tr>
-
+  }
+  .sep {
+    height: 25px;
+  }
+    </style>
+</head>
+<body>
+    <div class="header">
+      <h1>To Do List</h1>
+    </div>
+  <h5><a href="{% url 'todolist:create-task'%}">Create New Task</a></h5>
     {% for task in daftar_task %}
-    <tr>
-        <th>{{task.date}}</th>
-        <th>{{task.title}}</th>
-        <th>{{task.description}}</th>
-            {% if task.is_finished %}
-            <th>Selesai</th>
-            {% else %}
-            <th>Belum Selesai</th>
-            {% endif %}
-        <th><button><a href="updatetask/{{task.id}}">Update task</a></button></th>
-        <th><button><a href="deletetask/{{task.id}}">Delete task</a></button></th>
-    </tr>
-{% endfor %}
-</table>
-
-<h5>Sesi terakhir login: {{last_login}}</h5>
-<p><a href="{% url 'todolist:logout'%}">Logout</a></p>
+    <div class="card-deck">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{task.title}}</h5>
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-success"><i class="fa fa-briefcase"style="font-size:20px;"></i> Deskripsi: {{task.description}}</li>
+              <li class="list-group-item list-group-item-success"><i class="fa fa-clock-o"style="font-size:20px;"></i> Tanggal:  {{task.date}}</li>
+              <li class="list-group-item list-group-item-success"><i class="fa fa-inr"style="font-size:20px;"></i> Status:
+                {% if task.is_finished %}
+                  Selesai</li>
+                {% else %}
+                  Belum Selesai</li>
+                  {% endif %}
+            </li>
+            </ul>
+            </div>
+            <div class="card-footer">
+                <button class="btn-update"><a href="updatetask/{{task.id}}">Update task</a></button>
+                <button class="btn-delete"><a href="deletetask/{{task.id}}">Delete task</a></button>
+            </div>
+        </div>
+    </div>
+    <div class="sep"></div>
+    {% endfor %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <h5>Sesi terakhir login: {{last_login}}</h5>
+<h5><a href="{% url 'todolist:logout'%}">Logout</a></h5>
+  </html>
+</body>
+</html>
 {% endblock content %}
