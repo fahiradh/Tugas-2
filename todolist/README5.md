@@ -1,7 +1,7 @@
 ## Fahira Adindiah (2106751575) - PBP D
 
 ## LINK DEPLOYMENT
-### https://katalog-barang/todolist/
+### https://katalog-barang.herokuapp.com/todolist/
 
 ## Apa perbedaan dari Inline, Internal, dan External CSS? Apa saja kelebihan dan kekurangan dari masing-masing style?
 Perbedaan inline, internal, dan external CSS dapat dilihat dari cara pada penggunaannya di dalam file HTML. Internal class merupakan kode yang dituliskan dengan tag `<style>` pada bagian header dan merujuk pada satu class spesifik. Kelebihan dari internal CSS adalah memudahkan kostuminsasi design karena tidak perlu mengunggah beberapa file tambahan. Namun, banyaknya isi internal CSS akan memengaruhi waktu loading page. Berbeda dengan internal, inline CSS merupakan CSS yang dituliskan langsung pada atribut elemen HTML. Spesifiknya, inline CSS dituliskan di dalam atribut style elemen HTML. Inline CSS membuat proses request HTTP yang kecil untuk loading website jadi lebih cepat. Sementara itu, external CSS adalah CSS yang ditulis di luar file HTML dengan ekstensi .css. Biasanya CSS tersebut dipanggil di bagian header file HTML atau setelah `<head>`.
