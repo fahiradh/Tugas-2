@@ -1,63 +1,98 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block meta %}
-
 <title>Create Task</title>
-
 {% endblock meta %}
 {% block content %} 
-<div class = "create">
-    <style>
-        h2{
+
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style media="screen">
+        input{
+            display: block;
+            height: 50px;
+            width: 100%;
+            background-color: rgba(255,255,255,0.07);
+            border-radius: 3px;
+            padding: 0 25px;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Poppins',sans-serif;
+        }
+        /* Extra styles for demo */
+        /* Article:  https://superdevresources.com/glassmorphism-ui-css/ */
+        body {
+            background: url(https://dl.dropbox.com/s/mpmu0gjtxv2x3fs/Webp.net-resizeimage%20%281%29.jpg?raw=1) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
             text-align: center;
-            background: #16213E;
-            text-transform: uppercase;
-            font-size: 25px;
-            color: #fff;
-            line-height: 25px;
-            border-radius: 30px;
+            font-family: 'Poppins',sans-serif;
+        }
+        form{
+            height: 350px;
+            width: 400px;
+            background-color: rgba(255,255,255,0.13);
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 40px rgba(8,7,16,0.6);
             padding-bottom: 15px;
-            padding-left: 15px;
-            padding-right: 15px;
-            padding-top: 15px;
+            padding-left: 30px;
+            padding-right: 10px;
+            padding-top: 25px;
         }
-
-        form, input{
-            text-align: left;
+        form *{
+            font-family: 'Poppins',sans-serif;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            font-weight:400;
         }
-
-        table, th, td {
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 18px;
+        form h2{
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 42px;
+            text-align: center;
         }
-        
-        .center {
-            margin-left: auto; 
-            margin-right: auto;
+        @media screen and (max-width: 800px) {
+            .left, .main, .right {
+                width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+            }
         }
     </style>
-
-    <h2>Create Task</h2>
-
-    <form method="POST" action="">
-        {% csrf_token %}
-        <table class="center">
-            <tr>
-                <td>Judul: </td>
-                <td><input type="text" name="title" placeholder="Title" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Deskripsi: </td>
-                <td><input type="text" name="description" placeholder="Description" class="form-control"></td>
-            </tr>
-
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Submit"></td>
-            </tr>
-        </table>
-    </form>
-</div>
-
+</head>
+<body>
+    <div class="form">
+        <form method="POST" action="">
+            <h2>Create New Task</h2>
+                {% csrf_token %}
+                <table class="center">
+                    <tr>
+                        <td>Judul:   </td>
+                        <td><input type="text" name="title" placeholder="Title" class="form-control"></td>
+                    </tr>
+                            
+                    <tr>
+                        <td>Deskripsi:   </td>
+                        <td><input type="text" name="description" placeholder="Description" class="form-control"></td>
+                    </tr>
+        
+                    <tr>
+                    <td></td>
+                    <td><input class="btn login_btn" type="submit" value="Submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
 {% endblock content %}
