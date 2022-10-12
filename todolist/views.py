@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
@@ -88,11 +89,10 @@ def show_todolist_json(request):    # AJAX GET
     data_todolist = TodoList.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', data_todolist), content_type='application/json')
 
-def add_task(request):
-    if request.method == 'POST':
+def add_task(request) :
+    if request.method == 'POST' :
         title = request.POST.get('title')
         description = request.POST.get('description')
-        TodoList.objects.create(title=title, description=description, date=datetime.date.today(), user=request.user)
-        response = HttpResponseRedirect(reverse("todolist:show_todolist")) 
-        return response
-    return render(request,"create_task.html")
+        task = TodoList.objects.create(title=title, description=description, date=datetime.date.today(), user=request.user)
+        task.save()
+    return HttpResponse()
