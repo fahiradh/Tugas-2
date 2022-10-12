@@ -82,3 +82,17 @@ def delete_task(request, id):
     else:
         return redirect('todolist:show_todolist')
     return redirect('todolist:show_todolist')
+
+@login_required(login_url='login/')
+def show_todolist_json(request):    # AJAX GET
+    data_todolist = TodoList.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', data_todolist), content_type='application/json')
+
+def add_task(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        TodoList.objects.create(title=title, description=description, date=datetime.date.today(), user=request.user)
+        response = HttpResponseRedirect(reverse("todolist:show_todolist")) 
+        return response
+    return render(request,"create_task.html")
