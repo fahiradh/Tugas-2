@@ -1,9 +1,43 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% block meta %}
+
 <title>To Do List</title>
+<script>
+  $(document).ready(function(){
+    $('.modal').hide();
+    $('.backdrop').hide();
+    $.get('/todolist/json/', function(data, status){
+      let content = '';
+      for (let i=0; i<data.length; i++){
+        let message = data[i].fields.is_finished ? 'Selesai':'Belum Selesai';
+        content += `
+          <div class="card-body">
+              <div class ="card-text">
+              <h5 class="card-title">${data[i].fields.title}</h5>
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-success"> 📑 Deskripsi: ${data[i].fields.description}</li>
+                  <li class="list-group-item list-group-item-success"> 📅 Tanggal: ${data[i].fields.date}</li>
+                  <li class="list-group-item list-group-item-success"> 📌 Status: ${message}</li>
+                </ul>
+              </div>
+              <div class="card-footer">
+                <button class="btn-update"><a href="updatetask/${data[i].pk}">Update task</a></button>
+                <button class="btn-delete"><a href="deletetask/${data[i].pk}">Delete task</a></button>
+              </div>
+            </div>
+          </div>
+          <div class="sep"></div>
+          `;
+        $('.content').html(content);
+      }
+    })
+  })
+</script>
+
 {% endblock meta %}
 {% block content %}
+
 <html>
 <head>
   <!-- Required meta tags -->
@@ -38,8 +72,6 @@
     }
 
     h5 {
-      padding: 20px;
-      font-size:18px;
       color: white;
       text-align: center;
     }
@@ -49,89 +81,143 @@
         max-width: 46%;
       }
     }
-  
-  .card {
-    -webkit-backdrop-filter: blur(16px) saturate(155%);
-    background-color: rgba(255, 255, 255, 0.69);
-    border-radius: 12px;
-    border: 1px solid rgba(209, 213, 219, 0.3);
-  }
-  .card-title {
-    font-family: 'Poppins',sans-serif;
-    font-weight:bold;
-    text-align: center;
-    text-transform: uppecase;
-    font-size: 28px;
-  }
-  .card-text {
-    font-family: 'Poppins',sans-serif;
-    text-align: justify;
-  }
+    .card {
+      -webkit-backdrop-filter: blur(16px) saturate(155%);
+      border-radius: 12px;
+      border: 1px solid rgba(209, 213, 219, 0.3);
+    }
+    .card-title {
+      font-family: 'Poppins',sans-serif;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 28px;
+    }
+    .card-text {
+      font-family: 'Poppins',sans-serif;
+      text-align: justify;
+    }
 
-  button{
-      text-align: center;  
-      margin-top: 10px;
-      width: 100px;
-      background-color: #161623;
-      padding: 10px 0;
-      font-size: 14px;
-      font-weight: 600;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-bottom:10px;
-  }
-  .list-group, .list-group-item-success{
-    font-family: 'Poppins',sans-serif;
-    position:center;
-    color: #020302;
-    background-color: rgba(255, 255, 255, 0.69);
-    border-radius: 12px;
-    backdrop-filter: blur(16px) saturate(155%);
-    -webkit-backdrop-filter: blur(16px) saturate(155%);
-    border: 1px solid rgba(209, 213, 219, 0.3);
+    .card-body {
+      padding: 1.25rem;
+      text-align: center;
+    }
 
-  }
-  .sep {
-    height: 25px;
-  }
+    button{
+        width: 100px;
+        background-color: #161623;
+        padding: 10px 0;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-bottom:10px;
+        color: #007bff;
+    }
+    .list-group, .list-group-item-success{
+      font-family: 'Poppins',sans-serif;
+      color: #020302;
+      backdrop-filter: blur(16px) saturate(155%);
+      background-color: #faf5f5c2;
+    }
+    .sep {
+      height: 25px;
+    }
     </style>
 </head>
+
 <body>
+  <div>
+    <!-- Header -->
     <div class="header">
       <h1>To Do List</h1>
+      <h5><button id="add-task" class="add-task">Add Task</button></h5>
+      <h5><button><a href="{% url 'todolist:create-task'%}">Create New Task</a></button></h5>
     </div>
-  <h5><a href="{% url 'todolist:create-task'%}">Create New Task</a></h5>
-    {% for task in daftar_task %}
-    <div class="card-deck">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{task.title}}</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-success"><i class="fa fa-briefcase"style="font-size:20px;"></i> Deskripsi: {{task.description}}</li>
-              <li class="list-group-item list-group-item-success"><i class="fa fa-clock-o"style="font-size:20px;"></i> Tanggal:  {{task.date}}</li>
-              <li class="list-group-item list-group-item-success"><i class="fa fa-inr"style="font-size:20px;"></i> Status:
-                {% if task.is_finished %}
-                  Selesai</li>
-                {% else %}
-                  Belum Selesai</li>
-                  {% endif %}
-            </li>
-            </ul>
-            </div>
-            <div class="card-footer">
-                <button class="btn-update"><a href="updatetask/{{task.id}}">Update task</a></button>
-                <button class="btn-delete"><a href="deletetask/{{task.id}}">Delete task</a></button>
-            </div>
-        </div>
+
+    <!-- To do list content -->
+    <div class="content"></div>
+
+    <!-- Backdrop modals -->
+    <div class="backdrop"></div>
+    
+    <!-- Modals -->
+    <div class="modal-card-body">
+      {% csrf_token %}
+      <h3 style=text-align:center>Add New Task</h3>
+      <div class="card-body">
+        <label>Title</label>
+        <input class="title" placeholder="title" required>
+      </div>
+      <div class="card-body">
+        <label>Description</label>
+        <input class="description" placeholder="description" required>
+      </div>
+      <h5><button class="add-task-button" id="add-task-button">Add Task</button></h5>
     </div>
-    <div class="sep"></div>
-    {% endfor %}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <h5>Sesi terakhir login: {{last_login}}</h5>
-<h5><a href="{% url 'todolist:logout'%}">Logout</a></h5>
-  </html>
-</body>
-</html>
+  </div>
+
+  <!-- Add Task Button -->
+  <script>
+    $(document).ready(function(){
+      $(".add-task").click( function(){
+        $('.modal-card-body').toggle();
+        $('.backdrop').toggle();
+      })
+    })
+  </script>
+
+  <!-- Modal Add Task Button -->
+  <script>
+    $(document).ready(function(){
+      $('.add-task-button').click( function(){
+      let title = $('.title').val();
+      let description = $('.description').val();
+      let CSRFtoken = $('input[name="csrfmiddlewaretoken"]').val();
+      $.post('/todolist/add/', {
+        title: title,
+        description: description,
+        csrfmiddlewaretoken: CSRFtoken
+      }, function(){
+        $('.modal-card-body').hide();
+        $('.backdrop').hide();
+        $.get('/todolist/json/', function(data){
+          let content = '';
+          for (let i=0; i<data.length; i++){
+            let message = data[i].fields.is_finished ? 'Selesai':'Belum Selesai';
+            content += `
+            <div class="card-body">
+              <div class ="card-text">
+              <h5 class="card-title">${data[i].fields.title}</h5>
+                  <ul class="list-group">
+                    <li class="list-group-item list-group-item-success"> 📑 Deskripsi: ${data[i].fields.description}</li>
+                    <li class="list-group-item list-group-item-success"> 📅 Tanggal: ${data[i].fields.date}</li>
+                    <li class="list-group-item list-group-item-success"> 📌 Status: ${message}</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <button class="btn-update"><a href="updatetask/${data[i].pk}">Update task</a></button>
+                  <button class="btn-delete"><a href="deletetask/${data[i].pk}">Delete task</a></button>
+                </div>
+              </div>
+            </div>
+            <div class="sep"></div>
+            `;
+            $('.content').html(content);
+          }
+        })
+      })
+    })
+  })
+</script>
+
+<!-- Click Modals Backdrop -->
+<script>
+  $(document).ready( function(){
+    $('.backdrop').click( function(){
+      $('.modal-card-body').hide();
+      $('.backdrop').hide();
+    })
+  })
+</script>
 {% endblock content %}
