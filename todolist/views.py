@@ -88,6 +88,7 @@ def show_todolist_json(request):
     data_todolist = TodoList.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', data_todolist), content_type='application/json')
 
+@login_required(login_url="/todolist/login/")
 def add_task(request) :
     if request.method == 'POST' :
         title = request.POST.get('title')
@@ -98,5 +99,6 @@ def add_task(request) :
 
 @login_required(login_url="/todolist/login/")
 def delete_task_ajax(request, id):
-    TodoList.objects.filter(pk=id, user=request.user).delete();
+    task = TodoList.objects.filter(id=id, user=request.user)
+    task.delete()
     return HttpResponse()

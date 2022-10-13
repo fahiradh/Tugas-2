@@ -7,7 +7,7 @@
   $(document).ready(function(){
     $('.modal').hide();
     $('.backdrop').hide();
-    $.get('/todolist/json/', function(data, status){
+    $.get('/todolist/json/', function(data){
       let content = '';
       for (let i=0; i<data.length; i++){
         let message = data[i].fields.is_finished ? 'Selesai':'Belum Selesai';
@@ -23,7 +23,7 @@
               </div>
               <div class="card-footer">
                 <button class="btn-update"><a href="updatetask/${data[i].pk}">Update task</a></button>
-                <button class="btn-delete"><a href="deletetask/${data[i].pk}">Delete task</a></button>
+                <button class="btn-delete" onclick="deleteTask(${data[i].pk})">Delete task</a></button>
               </div>
             </div>
           </div>
@@ -61,17 +61,18 @@
       font-family: 'Poppins',sans-serif;
       background-color: #161623;
       color:white;
+      margin-left: 30px;
+      margin-right: 30px;
     }
   
     .header, h1 {
       text-align: center;
       padding: 20px;
-      font-size:31px;
       font-weight:600;
       color: white;
     }
 
-    h5 {
+    h5, .content {
       color: white;
       text-align: center;
     }
@@ -99,20 +100,18 @@
     }
 
     .card-body {
-      padding: 1.25rem;
       text-align: center;
+      padding: initial;
     }
 
     button{
-        width: 100px;
-        background-color: #161623;
-        padding: 10px 0;
-        font-size: 14px;
-        font-weight: 600;
-        border-radius: 10px;
-        cursor: pointer;
-        margin-bottom:10px;
-        color: #007bff;
+      background-color: #161623;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #007bff;
+      padding: 10px 25px;
     }
     .list-group, .list-group-item-success{
       font-family: 'Poppins',sans-serif;
@@ -144,7 +143,7 @@
     <!-- Modals -->
     <div class="modal-card-body">
       {% csrf_token %}
-      <h3 style=text-align:center>Add New Task</h3>
+      <h1>Add New Task</h1>
       <div class="card-body">
         <label>Title</label>
         <input class="title" placeholder="title" required>
@@ -153,7 +152,7 @@
         <label>Description</label>
         <input class="description" placeholder="description" required>
       </div>
-      <h5><button class="add-task-button" id="add-task-button">Add Task</button></h5>
+      <h5><button class="add-task-button" id="add-task-button">Add</button></h5>
     </div>
   </div>
 
@@ -170,7 +169,7 @@
   <!-- Modal Add Task Button -->
   <script>
     $(document).ready(function(){
-      $('.add-task-button').click( function(){
+      $('.add-task-button').click(function(){
       let title = $('.title').val();
       let description = $('.description').val();
       let CSRFtoken = $('input[name="csrfmiddlewaretoken"]').val();
@@ -186,38 +185,97 @@
           for (let i=0; i<data.length; i++){
             let message = data[i].fields.is_finished ? 'Selesai':'Belum Selesai';
             content += `
-            <div class="card-body">
-              <div class ="card-text">
-              <h5 class="card-title">💡 ${data[i].fields.title}</h5>
-                  <ul class="list-group">
-                    <li class="list-group-item list-group-item-success"> 📑 Deskripsi: ${data[i].fields.description}</li>
-                    <li class="list-group-item list-group-item-success"> 📅 Tanggal: ${data[i].fields.date}</li>
-                    <li class="list-group-item list-group-item-success"> 📌 Status: ${message}</li>
-                  </ul>
-                </div>
-                <div class="card-footer">
-                  <button class="btn-update"><a href="updatetask/${data[i].pk}">Update task</a></button>
-                  <button class="btn-delete"><a href="deletetask/${data[i].pk}">Delete task</a></button>
+              <div class="card-body">
+                <div class ="card-text">
+                <h5 class="card-title">💡 ${data[i].fields.title}</h5>
+                    <ul class="list-group">
+                      <li class="list-group-item list-group-item-success"> 📑 Deskripsi: ${data[i].fields.description}</li>
+                      <li class="list-group-item list-group-item-success"> 📅 Tanggal: ${data[i].fields.date}</li>
+                      <li class="list-group-item list-group-item-success"> 📌 Status: ${message}</li>
+                    </ul>
+                  </div>
+                  <div class="card-footer">
+                    <button class="btn-update"><a href="updatetask/${data[i].pk}">Update task</a></button>
+                    <button class="btn-delete" onclick="deleteTask(${data[i].pk})">Delete task</a></button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="sep"></div>
-            `;
-            $('.content').html(content);
-          }
+              <div class="sep"></div>
+              `;
+              $('.content').html(content);
+            }
+          })
         })
       })
     })
-  })
-</script>
+  </script>
 
-<!-- Click Modals Backdrop-->
-<script>
-  $(document).ready( function(){
-    $('.backdrop').click( function(){
-      $('.modal-card-body').hide();
-      $('.backdrop').hide();
+  <!-- Delete Button -->
+  <script>
+    $(document).ready(function(){
+      $(".btn-delete").click(function(){
+        $('.modal-card-body').toggle();
+        $('.backdrop').toggle();
+      })
     })
-  })
-</script>
+  </script>
+
+  <!-- Modal Delete Button -->
+  <script>
+    function deleteTask(pk){
+      $.ajax({
+        type: "GET",
+        url: "/todolist/delete/" + pk,
+        data: null,
+        success: data => console.log(data),
+        dataType: "json"
+      });
+      $(document).ready(function(){
+        $('.modal').hide();
+        $('.backdrop').hide();
+        $.get('/todolist/json/', function(data){
+          let content = '';
+          if (data.length == 0){
+            content += "🔸 Saat ini Anda tidak memiliki to do list 🔸"
+            $('.content').html(content);
+          } else{
+            for (let i=0; i<data.length; i++){
+              let message = data[i].fields.is_finished ? 'Selesai':'Belum Selesai';
+              content += `
+                <div class="card-body">
+                    <div class ="card-text">
+                    <h5 class="card-title">💡 ${data[i].fields.title}</h5>
+                      <ul class="list-group">
+                        <li class="list-group-item list-group-item-success"> 📑 Deskripsi: ${data[i].fields.description}</li>
+                        <li class="list-group-item list-group-item-success"> 📅 Tanggal: ${data[i].fields.date}</li>
+                        <li class="list-group-item list-group-item-success"> 📌 Status: ${message}</li>
+                      </ul>
+                    </div>
+                    <div class="card-footer">
+                      <button class="btn-update"><a href="updatetask/${data[i].pk}">Update task</a></button>
+                      <button class="btn-delete" onclick="deleteTask(${data[i].pk})">Delete task</a></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="sep"></div>
+                `;
+              $('.content').html(content);
+            }
+          }
+        })
+      })
+    }
+  </script>
+
+  <!-- Click Modals Backdrop-->
+  <script>
+    $(document).ready(function(){
+      $('.backdrop').click( function(){
+        $('.modal-card-body').hide();
+        $('.backdrop').hide();
+      })
+    })
+  </script>
+</body>
+</html>
 {% endblock content %}
